@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multi Watch</title>
+
+        <script type='text/javascript'>
+	    	var listStopWatch = [];
+	    	
+	    	function Watch(title, startTime) {
+	    		this.title = title;
+	    		this.startTime = startTime;
+	    		this.curTime = '';
+
+	    	}
+
+	    	function AddWatch() {
+	    		listStopWatch[listStopWatch.length] = new Watch(document.getElementById('title').value, Date.now());
+	    		//console.log(tempWatch.title);
+	    	}
+
+	    	function ShowList() {
+	    		console.log(listStopWatch);
+	    		// for(var i = 0; i < listStopWatch.length; i++) {
+	    		// 	console.log(listStopWatch[i].title);
+	    		// }
+	    	}
+
+	    	setInterval(ShowList, 1000);
+    	</script>
+    </head>
+    <body>
+    	<h1> Multi Stop Watch </h1>
+    	<input id='title' type='text' placeholder="Enter title for StopWatch" />
+    	<button onclick="AddWatch()">Add Stop Watch</button>
+    </body>
+
+</html>
