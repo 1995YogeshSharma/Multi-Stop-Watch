@@ -3,6 +3,15 @@
     <head>
         <title>Multi Watch</title>
 
+        <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Link for jquery required for bootstrap -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
         <script type='text/javascript'>
 	    	var listStopWatch = [];
 	    	
@@ -28,10 +37,16 @@
 	    	setInterval(ShowList, 1000);
     	</script>
     </head>
-    <body>
-    	<h1> Multi Stop Watch </h1>
-    	<input id='title' type='text' placeholder="Enter title for StopWatch" />
-    	<button onclick="AddWatch()">Add Stop Watch</button>
+    <body class='container'>
+	    <div class="container-fluid">
+	    	<h1 class="page-header text-center"> Multi Stop Watch </h1>
+	    	<div class="input-group">
+	    		<input id='title' type='text' class="form-control" placeholder="Enter title for StopWatch"/>
+	    		<span class="input-group-btn">
+	    			<button onclick="AddWatch()" class="form-control btn btn-primary">Add Stop Watch</button>
+	    		</span>
+	    	</div>
+	    </div>
     </body>
 
 </html>
