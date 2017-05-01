@@ -56,6 +56,7 @@
 	    		listStopWatch[listStopWatch.length] = new Watch(idCounter, 1, document.getElementById('title').value, Date.now());
 	    		idCounter = idCounter + 1;
 	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1].id,listStopWatch[listStopWatch.length-1].title, 0));
+	    		document.getElementById('title').value = '';
 	    	}
 
 	    	function ShowList() {
