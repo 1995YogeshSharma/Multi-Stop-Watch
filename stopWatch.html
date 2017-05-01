@@ -26,8 +26,8 @@
 							  			"</h3>" +
 							  		"</div>" +
 							  		"<div class='panel-body'>" +
-							  			"<p class='text-center'>" +
-							 				time +
+							  			"<p class='text-center' + id='watch" + id +"'>" +
+							 				time + " secs" +
 							  			"</p>" +
 							  		"</div>" +
 							  		"<div class='panel-footer'>" +
@@ -46,16 +46,16 @@
 	    	
 	    	function Watch(id, status = 0, title, startTime) {
 	    		this.id = id;
-	    		this.status = 0; // 0 -> pause state 1 -> play state
+	    		this.status = status; // 0 -> pause state 1 -> play state
 	    		this.title = title;
 	    		this.startTime = startTime;
-	    		this.curTime = '';
+	    		this.curTime = startTime;
 	    	}
 
 	    	function AddWatch() {
 	    		listStopWatch[listStopWatch.length] = new Watch(idCounter, 1, document.getElementById('title').value, Date.now());
 	    		idCounter = idCounter + 1;
-	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1].id, listStopWatch[listStopWatch.length-1].title, 1000));
+	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1].id,listStopWatch[listStopWatch.length-1].title, 0));
 	    	}
 
 	    	function ShowList() {
@@ -81,7 +81,17 @@
 	    		$("#stopwatches").html('');
 	    	}
 
-	    	setInterval(ShowList, 1000);
+	    	function updateClocks() {
+	    		for(var i = 0; i < listStopWatch.length; i++) {
+	    			if(listStopWatch[i].status !== 0) {
+	    				listStopWatch[i].curTime += 1;
+	    				var tempId = 'watch' + listStopWatch[i].id;
+	    				document.getElementById(tempId).innerHTML = (listStopWatch[i].curTime - listStopWatch[i].startTime) + " secs";
+	    			}
+	    		}
+	    	}
+
+	    	setInterval(updateClocks, 1000);
     	</script>
     </head>
     <body class='container'>
