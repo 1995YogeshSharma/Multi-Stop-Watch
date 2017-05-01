@@ -14,6 +14,32 @@
 
         <script type='text/javascript'>
 	    	var listStopWatch = [];
+
+			function StopWatchBody(title, time) {
+				var retStr = "<div class='col-md-6'>" +
+							 	"<div class='panel panel-default'>" +
+							  		"<div class='panel-heading'>" +
+							  			"<h3 class='panel-title'>" +
+							 				title +
+							  			"</h3>" +
+							  		"</div>" +
+							  		"<div class='panel-body'>" +
+							  			"<p class='text-center'>" +
+							 				time +
+							  			"</p>" +
+							  		"</div>" +
+							  		"<div class='panel-footer'>" +
+							  			"<div class='button-group'>" +
+							  				"<span class='btn btn-success'>Resume Timer</span>" +
+											"<span class='btn btn-primary'>Restart Timer</span>" +
+											"<span class='btn btn-danger'>Remove Timer</span>" +
+										"</div>" +
+									"</div>" +
+								"</div>" +
+							  "</div>";
+				return retStr;
+
+			}
 	    	
 	    	function Watch(title, startTime) {
 	    		this.title = title;
@@ -25,6 +51,7 @@
 	    	function AddWatch() {
 	    		listStopWatch[listStopWatch.length] = new Watch(document.getElementById('title').value, Date.now());
 	    		//console.log(tempWatch.title);
+	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length-1].title, 1000));
 	    	}
 
 	    	function ShowList() {
@@ -38,15 +65,40 @@
     	</script>
     </head>
     <body class='container'>
+	    <div class="row">
 	    <div class="container-fluid">
 	    	<h1 class="page-header text-center"> Multi Stop Watch </h1>
 	    	<div class="input-group">
 	    		<input id='title' type='text' class="form-control" placeholder="Enter title for StopWatch"/>
 	    		<span class="input-group-btn">
-	    			<button onclick="AddWatch()" class="form-control btn btn-primary">Add Stop Watch</button>
+	    			<p onclick="AddWatch()" class="form-control btn btn-primary">Add Stop Watch</p>
 	    		</span>
 	    	</div>
+		</div>	
+		</div>
+	    
+	    <!--layout for Stop watch -->
+    	<div class="row" id="stopwatches">
+    	
+	    	<!--div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">title</h3>
+					</div>
+					<div class="panel-body"> 
+						<p class="text-center">10000</p>
+					</div>
+					<div class="panel-footer">
+						<div class="button-group">
+							<span class="btn btn-success">Resume Timer</span>
+							<span class="btn btn-primary">Restart Timer</span>
+							<span class="btn btn-danger">Remove Timer</span>
+						</div>
+					</div>
+				</div>    
+	    	</div-->
 	    </div>
+	    	
     </body>
 
 </html>
