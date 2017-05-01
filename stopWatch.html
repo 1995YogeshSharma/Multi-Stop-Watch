@@ -14,27 +14,28 @@
 
         <script type='text/javascript'>
 	    	//globals
-	    	var listStopWatch = [];
-	    	var idCounter = 1;
+	    	var listStopWatch = [];  
+	    	var idCounter = 1;  //gives id to the watch object
 
-			function StopWatchBody(id, title, time) {
-				var retStr = "<div class='col-md-6' id='" + id + "'>" +
+	    	//returns html body for the watch
+			function StopWatchBody(Watch) {
+				var retStr = "<div class='col-md-6' id='" + Watch.id + "'>" +
 							 	"<div class='panel panel-default'>" +
 							  		"<div class='panel-heading'>" +
 							  			"<h3 class='panel-title'>" +
-							 				title +
+							 				Watch.title +
 							  			"</h3>" +
 							  		"</div>" +
 							  		"<div class='panel-body'>" +
-							  			"<p class='text-center' + id='watch" + id +"'>" +
-							 				time + " secs" +
+							  			"<p class='text-center' + id='watch" + Watch.id +"'>" +
+							 				Watch.time + " secs" +
 							  			"</p>" +
 							  		"</div>" +
 							  		"<div class='panel-footer'>" +
 							  			"<div class='btn-group btn-group-justified'>" +
 							  				"<span class='btn btn-success'><span class='glyphicon glyphicon-play'>Resume</span></span>" +
 											"<span class='btn btn-info'><span class='glyphicon glyphicon-refresh'></span>Restart</span>" +
-											"<span class='btn btn-danger' onclick='RemoveOne(" + id + ")'><span class='glyphicon glyphicon-remove'>Remove</span>" +
+											"<span class='btn btn-danger' onclick='RemoveOne(" + Watch.id + ")'><span class='glyphicon glyphicon-remove'>Remove</span>" +
 										"<!/div>" +
 									"</div>" +
 								"</div>" +
@@ -44,6 +45,7 @@
 
 			}
 	    	
+	    	//creates a watch object
 	    	function Watch(id, status = 0, title, startTime) {
 	    		this.id = id;
 	    		this.status = status; // 0 -> pause state 1 -> play state
@@ -52,10 +54,11 @@
 	    		this.curTime = startTime;
 	    	}
 
+	    	//adds watch to DOM
 	    	function AddWatch() {
 	    		listStopWatch[listStopWatch.length] = new Watch(idCounter, 1, document.getElementById('title').value, Date.now());
 	    		idCounter = idCounter + 1;
-	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1].id,listStopWatch[listStopWatch.length-1].title, 0));
+	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1]));
 	    		document.getElementById('title').value = '';
 	    	}
 
@@ -66,6 +69,7 @@
 	    		// }
 	    	}
 
+	    	//removes a single clock when called
 	    	function RemoveOne(id) {
 	    		document.getElementById(id).outerHTML = '';
 	    		for(var i = 0; i < listStopWatch.length; i++) {
@@ -76,12 +80,14 @@
 	    		}
 	    	}
 
+	    	//removes all clocks
 	    	function RemoveAll() {
 	    		listStopWatch = [];
 	    		idCounter = 1;
 	    		$("#stopwatches").html('');
 	    	}
 
+	    	//updates the time in clocks
 	    	function updateClocks() {
 	    		for(var i = 0; i < listStopWatch.length; i++) {
 	    			if(listStopWatch[i].status !== 0) {
