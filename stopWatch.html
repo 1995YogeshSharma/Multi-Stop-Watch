@@ -34,7 +34,7 @@
 							  		"<div class='panel-footer'>" +
 							  			"<div class='btn-group btn-group-justified'>" +
 							  				"<span class='btn btn-success'><span class='glyphicon glyphicon-play'>Resume</span></span>" +
-											"<span class='btn btn-info'><span class='glyphicon glyphicon-refresh'></span>Restart</span>" +
+											"<span class='btn btn-info' onclick='RestartClock(" + Watch.id + ")'><span class='glyphicon glyphicon-refresh'></span>Restart</span>" +
 											"<span class='btn btn-danger' onclick='RemoveOne(" + Watch.id + ")'><span class='glyphicon glyphicon-remove'>Remove</span>" +
 										"<!/div>" +
 									"</div>" +
@@ -42,7 +42,6 @@
 							  "</div>";
 				
 				return retStr;
-
 			}
 	    	
 	    	//creates a watch object
@@ -76,6 +75,16 @@
 	    			if(listStopWatch[i].id == id) {
 	    				listStopWatch.splice(i, 1);
 	    				break;
+	    			}
+	    		}
+	    	}
+
+	    	//restarts the time for one clock
+	    	function RestartClock(id) {
+	    		for(var i = 0; i < listStopWatch.length; i++) {
+	    			if(listStopWatch[i].id == id) {
+	    				listStopWatch[i].startTime = Date.now();
+	    				listStopWatch[i].curTime = Date.now();
 	    			}
 	    		}
 	    	}
