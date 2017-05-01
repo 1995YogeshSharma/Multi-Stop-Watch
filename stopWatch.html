@@ -13,10 +13,12 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <script type='text/javascript'>
+	    	//globals
 	    	var listStopWatch = [];
+	    	var idCounter = 1;
 
-			function StopWatchBody(title, time) {
-				var retStr = "<div class='col-md-6'>" +
+			function StopWatchBody(id, title, time) {
+				var retStr = "<div class='col-md-6' id='" + id + "'>" +
 							 	"<div class='panel panel-default'>" +
 							  		"<div class='panel-heading'>" +
 							  			"<h3 class='panel-title'>" +
@@ -32,7 +34,7 @@
 							  			"<div class='btn-group btn-group-justified'>" +
 							  				"<span class='btn btn-success'><span class='glyphicon glyphicon-play'>Resume</span></span>" +
 											"<span class='btn btn-info'><span class='glyphicon glyphicon-refresh'></span>Restart</span>" +
-											"<span class='btn btn-danger'><span class='glyphicon glyphicon-remove'>Remove</span>" +
+											"<span class='btn btn-danger' onclick='RemoveOne(" + id + ")'><span class='glyphicon glyphicon-remove'>Remove</span>" +
 										"<!/div>" +
 									"</div>" +
 								"</div>" +
@@ -42,16 +44,18 @@
 
 			}
 	    	
-	    	function Watch(title, startTime) {
+	    	function Watch(id, status = 0, title, startTime) {
+	    		this.id = id;
+	    		this.status = 0; // 0 -> pause state 1 -> play state
 	    		this.title = title;
 	    		this.startTime = startTime;
 	    		this.curTime = '';
 	    	}
 
 	    	function AddWatch() {
-	    		listStopWatch[listStopWatch.length] = new Watch(document.getElementById('title').value, Date.now());
-	    		//console.log(tempWatch.title);
-	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length-1].title, 1000));
+	    		listStopWatch[listStopWatch.length] = new Watch(idCounter, 1, document.getElementById('title').value, Date.now());
+	    		idCounter = idCounter + 1;
+	    		$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1].id, listStopWatch[listStopWatch.length-1].title, 1000));
 	    	}
 
 	    	function ShowList() {
@@ -61,8 +65,19 @@
 	    		// }
 	    	}
 
+	    	function RemoveOne(id) {
+	    		document.getElementById(id).outerHTML = '';
+	    		for(var i = 0; i < listStopWatch.length; i++) {
+	    			if(listStopWatch[i].id == id) {
+	    				listStopWatch.splice(i, 1);
+	    				break;
+	    			}
+	    		}
+	    	}
+
 	    	function RemoveAll() {
 	    		listStopWatch = [];
+	    		idCounter = 1;
 	    		$("#stopwatches").html('');
 	    	}
 
