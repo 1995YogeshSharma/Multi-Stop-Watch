@@ -18,6 +18,19 @@
 	    	var listStopWatch = [];  
 	    	var idCounter = 1;  //gives id to the watch object
 
+	    	//given time in seconds returns a string in format hh:mm:ss
+	    	function GiveTimeString(remSeconds) {
+	    		var secs = remSeconds % 60;
+	    		remSeconds = remSeconds - secs;
+	    		var mins = (remSeconds/60) % 60;
+	    		remSeconds = remSeconds/60 - mins;
+	    		var hrs = (remSeconds/60);
+	    		if(hrs < 10) hrs = "0" + hrs;
+	    		if(mins < 10) mins = "0" + mins;
+	    		if(secs < 10) secs = "0" + secs;
+	    		return hrs + ":" + mins + ":" + secs;
+	    	}
+
 	    	//returns html body for the watch
 			function StopWatchBody(Watch) {
 				var retStr = "<div class='col-md-6' id='" + Watch.id + "'>" +
@@ -28,9 +41,9 @@
 							  			"</h3>" +
 							  		"</div>" +
 							  		"<div class='panel-body'>" +
-							  			"<p class='text-center' + id='watch" + Watch.id +"'>" +
-							 				(Watch.curTime - Watch.startTime) + " secs" +
-							  			"</p>" +
+							  			"<h2 class='text-center' + id='watch" + Watch.id +"'>" +
+							 				GiveTimeString(Watch.curTime - Watch.startTime) +
+							  			"</h2>" +
 							  		"</div>" +
 							  		"<div class='panel-footer'>" +
 							  			"<div class='btn-group btn-group-justified'>" +
@@ -86,7 +99,7 @@
 	    			if(listStopWatch[i].id == id) {
 	    				listStopWatch[i].startTime = Date.now();
 	    				listStopWatch[i].curTime = Date.now();
-	    				document.getElementById('watch' + id).innerHTML = '0 secs';
+	    				document.getElementById('watch' + id).innerHTML = GiveTimeString(0);
 	    			}
 	    		}
 	    	}
@@ -124,7 +137,7 @@
 	    			if(listStopWatch[i].status !== 0) {
 	    				listStopWatch[i].curTime += 1;
 	    				var tempId = 'watch' + listStopWatch[i].id;
-	    				document.getElementById(tempId).innerHTML = (listStopWatch[i].curTime - listStopWatch[i].startTime) + " secs";
+	    				document.getElementById(tempId).innerHTML = GiveTimeString(listStopWatch[i].curTime - listStopWatch[i].startTime);
 	    			}
 	    		}
 	    	}
