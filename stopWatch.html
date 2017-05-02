@@ -33,9 +33,9 @@
 							  		"</div>" +
 							  		"<div class='panel-footer'>" +
 							  			"<div class='btn-group btn-group-justified'>" +
-							  				"<span class='btn btn-success'><span class='glyphicon glyphicon-play'>Resume</span></span>" +
-											"<span class='btn btn-info' onclick='RestartClock(" + Watch.id + ")'><span class='glyphicon glyphicon-refresh'></span>Restart</span>" +
-											"<span class='btn btn-danger' onclick='RemoveOne(" + Watch.id + ")'><span class='glyphicon glyphicon-remove'>Remove</span>" +
+							  				"<span class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + Watch.id + ")'>Pause</span>" +
+											"<span class='btn btn-info glyphicon glyphicon-refresh' onclick='RestartClock(" + Watch.id + ")'>Restart</span>" +
+											"<span class='btn btn-danger glyphicon glyphicon-remove' onclick='RemoveOne(" + Watch.id + ")'>Remove</span>" +
 										"<!/div>" +
 									"</div>" +
 								"</div>" +
@@ -85,6 +85,27 @@
 	    			if(listStopWatch[i].id == id) {
 	    				listStopWatch[i].startTime = Date.now();
 	    				listStopWatch[i].curTime = Date.now();
+	    				document.getElementById('watch' + id).innerHTML = '0 secs';
+	    			}
+	    		}
+	    	}
+
+	    	function PausePlayToggle(elem, id) {
+
+	    		if(elem.innerHTML == 'Pause') {
+	    			elem.outerHTML = "<span class='btn btn-success glyphicon glyphicon-play' onclick='PausePlayToggle(this, " + id + ")'>Play</span>"
+	    			for(var i = 0; i < listStopWatch.length; i++) {
+	    				if(listStopWatch[i].id == id) {
+	    					listStopWatch[i].status = 0;
+	    				}
+	    			}
+	    		}
+	    		else if(elem.innerHTML == 'Play') {
+	    			elem.outerHTML = "<span class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + id + ")'>Pause</span>"
+	    			for(var i = 0; i < listStopWatch.length; i++) {
+	    				if(listStopWatch[i].id == id) {
+	    					listStopWatch[i].status = 1;
+	    				}
 	    			}
 	    		}
 	    	}
