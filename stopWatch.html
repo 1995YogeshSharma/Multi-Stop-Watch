@@ -36,9 +36,18 @@
 				var retStr = "<div class='col-md-6' id='" + Watch.id + "'>" +
 							 	"<div class='panel panel-default'>" +
 							  		"<div class='panel-heading'>" +
-							  			"<h3 class='panel-title'>" +
-							 				Watch.title +
-							  			"</h3>" +
+							  			"<div class='row'>" +
+							  				"<div class='col-md-8'>" +
+							  					"<h3 class='panel-title'>" +
+							 						Watch.title +
+							  					"</h3>" +
+							  				"</div>" +
+							  				"<div class='col-md-4 text-center'>" +
+							  					"<button type='button' class='btn btn-default glyphicon glyphicon-pencil' data-toggle='modal' data-target='#notesModal' onclick='fillModal(" + Watch.id + ")'>" +
+							  						" Notes" +
+							  					"</button>" +
+							  				"</div>" +
+							  			"</div>" +
 							  		"</div>" +
 							  		"<div class='panel-body'>" +
 							  			"<h2 class='text-center' + id='watch" + Watch.id +"'>" +
@@ -65,6 +74,7 @@
 	    		this.title = title;
 	    		this.startTime = startTime;
 	    		this.curTime = startTime;
+	    		this.notes = [];
 	    	}
 
 	    	//adds watch to DOM
@@ -137,14 +147,94 @@
 	    			if(listStopWatch[i].status !== 0) {
 	    				listStopWatch[i].curTime += 1;
 	    				var tempId = 'watch' + listStopWatch[i].id;
+	    				var tempModalId = 'note' + listStopWatch[i].id;
 	    				document.getElementById(tempId).innerHTML = GiveTimeString(listStopWatch[i].curTime - listStopWatch[i].startTime);
+	    				if(document.getElementById(tempModalId) !== null) {
+	    					document.getElementById(tempModalId).innerHTML = GiveTimeString(listStopWatch[i].curTime - listStopWatch[i].startTime);
+	    				}
 	    			}
 	    		}
+	    	}
+
+	    	//function to add note to the watch's list and reload the modal
+	    	function AddNote(id) {
+	    		for(var i = 0; i < listStopWatch.length; i++) {
+	    			if(listStopWatch[i].id == id) {
+	    				listStopWatch[i].notes.push(document.getElementById('newNote').value);
+	    				fillModal(id);
+	    				break;
+	    			}
+	    		}
+	    	}
+
+	    	//function to fill the modal dynamically when a note button is called
+	    	function fillModal(id) {
+	    		var watch = null;
+	    		var retHtmlTitle = '';
+	    		var retHtmlBody = '';
+	    		var retHtmlFooter = '';
+
+	    		for(var i = 0; i < listStopWatch.length; i++) {
+	    			if(listStopWatch[i].id == id) {
+	    				watch = listStopWatch[i];
+
+	    			}
+	    		}
+	    		if(watch == null) {
+	    			console.log('error');
+	    		}
+
+	    		retHtmlTitle = watch.title;
+
+	    		retHtmlBody = retHtmlBody + 
+	    						"<h2 class='text-center' + id='note" + watch.id +"'>" +
+							 		GiveTimeString(watch.curTime - watch.startTime) +
+							  	"</h2>" +
+							  	"<hr>";
+
+				for(var i = 0; i < watch.notes.length; i++) {
+					retHtmlBody += "<p>" +
+									watch.notes[i] +
+									"</p>";
+				}
+
+				retHtmlFooter += "<div class='input-group'>" +
+									"<input type='text' name='noteText' class='form-control' id='newNote' placeholder='Write Note' />" +
+										"<div class='input-group-btn' onclick='AddNote(" + watch.id + ")'>" +
+											"<span class='btn btn-primary glyphicon glyphicon-plus'> Add Note</span>" +
+										"</div>" +
+								"</div>";
+
+
+	    		$('#notesModalTitle').html(retHtmlTitle);
+	    		$('#notesModalBody').html(retHtmlBody);
+	    		$('#notesModalFooter').html(retHtmlFooter);
 	    	}
 
 	    	setInterval(updateClocks, 1000);
     	</script>
     </head>
+	
+	<!-- Modal for showing Notes-->
+	<div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalTitle">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="notesModalTitle">to be filled by function</h4>
+	      </div>
+	      <div class="modal-body" id="notesModalBody">
+	        <p> to be filled by function</p>
+	      </div>
+	      <hr>
+      	  <div class="modal-footer" id="notesModalFooter">
+      		<p> to be filled by function </p>
+      	  </div>
+	    </div>
+	  </div>
+	</div>
+
+
     <body class='container'>
 	    <div class="row">
 	    <div class="container-fluid">
