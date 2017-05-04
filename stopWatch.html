@@ -156,6 +156,18 @@
 	    		}
 	    	}
 
+	    	//function to add note to the watch's list and reload the modal
+	    	function AddNote(id) {
+	    		for(var i = 0; i < listStopWatch.length; i++) {
+	    			if(listStopWatch[i].id == id) {
+	    				listStopWatch[i].notes.push(document.getElementById('newNote').value);
+	    				fillModal(id);
+	    				break;
+	    			}
+	    		}
+	    	}
+
+	    	//function to fill the modal dynamically when a note button is called
 	    	function fillModal(id) {
 	    		var watch = null;
 	    		var retHtmlTitle = '';
@@ -187,8 +199,8 @@
 				}
 
 				retHtmlFooter += "<div class='input-group'>" +
-									"<input type='text' class='form-control' id='exampleInputName2' placeholder='Write Note' />" +
-										"<div class='input-group-btn'>" +
+									"<input type='text' name='noteText' class='form-control' id='newNote' placeholder='Write Note' />" +
+										"<div class='input-group-btn' onclick='AddNote(" + watch.id + ")'>" +
 											"<span class='btn btn-primary glyphicon glyphicon-plus'> Add Note</span>" +
 										"</div>" +
 								"</div>";
