@@ -238,6 +238,13 @@
 					listStopWatch[listStopWatch.length] = new Watch(X[i].status, X[i].title, X[i].startTime, X[i].curTime, X[i].notes);
 	    			$("#stopwatches").append(StopWatchBody(listStopWatch[listStopWatch.length - 1]));    			}
     		}
+
+    		function detectEnter(event) {
+    			event = event || window.event;
+    			if(event.keyCode == 13){
+    				AddWatch();
+    			}
+    		}
     	</script>
     </head>
 	
@@ -266,9 +273,9 @@
 	    <div class="container-fluid">
 	    	<h1 class="page-header text-center"> Multi Stop Watch </h1>
 	    	<div class="input-group">
-	    		<input id='title' type='text' class="form-control" placeholder="Enter title for StopWatch"/>
+	    		<input id='title' type='text' class="form-control" onkeydown='detectEnter(event)' placeholder="Enter title for StopWatch"/>
 	    		<span class="input-group-btn">
-	    			<p onclick="AddWatch()" class="form-control btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add stopwatch </p>
+	    			<button onclick="AddWatch()" class="form-control btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add stopwatch </button>
 	    		</span>
 	    	</div>
 		</div>	
