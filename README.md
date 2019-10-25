@@ -8,6 +8,12 @@ Below is the screenshot showing the app in working :-
 ![image](https://cloud.githubusercontent.com/assets/9693472/26283282/ea0338d4-3e42-11e7-880b-3622393378e7.png)
 
 
-## Getting it to work 
-Nothing much to do. Just clone the repo and open the html file in browser.
+## Setting up 
+1) Fork and clone the repository.
+2) open `stopWatch.html` in any modern browser.
+
+## Contributing
+1) Follow the instructions in Setting up.
+2) Look for open issues or create issues.
+3) Open a PR and wait for it to be reviewed!
 
