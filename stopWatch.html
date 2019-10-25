@@ -76,7 +76,7 @@
 			}
 	    	
 	    	//creates a watch object
-	    	function Watch(status = 1, title, startTime=Date.now(), curTime=Date.now(), notes=[]) {
+	    	function Watch(status = 1, title, startTime=Date.now(), curTime=Date.now(), notes=[], notesTime=[]) {
 	    		if(title == null)
 	    			title = document.getElementById('title').value;
 	    		this.id = idCounter;
@@ -86,6 +86,7 @@
 	    		this.startTime = startTime;
 	    		this.curTime = curTime;
 	    		this.notes = notes;
+					this.notesTime = notesTime;
 	    	}
 
 	    	//adds watch to DOM
@@ -171,6 +172,7 @@
 	    		for(var i = 0; i < listStopWatch.length; i++) {
 	    			if(listStopWatch[i].id == id) {
 	    				listStopWatch[i].notes.push(document.getElementById('newNote').value);
+	    				listStopWatch[i].notesTime.push(listStopWatch[i].curTime - listStopWatch[i].startTime);
 	    				fillModal(id);
 	    				break;
 	    			}
@@ -182,6 +184,7 @@
 	    		for(var i = 0; i < listStopWatch.length; i++) {
 	    			if(listStopWatch[i].id == id) {
 	    				listStopWatch[i].notes.splice(noteIndex, 1);
+	    				listStopWatch[i].notesTime.splice(noteIndex, 1);
 	    				elem.outerHTML = '';
 	    			}
 	    		}
@@ -214,9 +217,10 @@
 
 				retHtmlBody += "<ul class='list-group'>";
 				for(var i = 0; i < watch.notes.length; i++) {
+					var noteTime = "";
 					retHtmlBody += "<li class='row list-group-item'>" +
 								   		"<p class='col-md-11 list-item'>" + 
-								   			watch.notes[i] +
+								   			watch.notes[i] + " (" + GiveTimeString(watch.notesTime[i]) + ") "  +
 								   		"</p>"+
 								   		"<span class='col-md-1 glyphicon glyphicon-remove pull-right' onclick='RemoveNote(this.parentNode, " + watch.id + ", " + i + ")'>"  +
 								   		"</span>" +
