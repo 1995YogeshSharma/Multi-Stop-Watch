@@ -226,7 +226,7 @@
 				retHtmlBody += "</ul>";
 
 				retHtmlFooter += "<div class='input-group'>" +
-									"<input type='text' name='noteText' class='form-control' id='newNote' placeholder='Write Note' />" +
+									"<input type='text' name='noteText' class='form-control' id='newNote' placeholder='Write Note' onKeyDown='if(event.which==13) AddNote(" + watch.id + ")' />" +
 										"<span class='input-group-btn'>" +
 	    									"<button onclick='AddNote(" + watch.id + ")' class='form-control btn btn-primary'><span class='glyphicon glyphicon-plus'></span> Add Note </button>" +
 	    								"</span>" +
