@@ -76,7 +76,7 @@
 			}
 	    	
 	    	//creates a watch object
-	    	function Watch(status = 1, title, startTime=Date.now(), curTime=Date.now(), notes=[]) {
+	    	function Watch(status = 0, title, startTime=Date.now(), curTime=Date.now(), notes=[]) {
 	    		if(title == null)
 	    			title = document.getElementById('title').value;
 	    		this.id = idCounter;
