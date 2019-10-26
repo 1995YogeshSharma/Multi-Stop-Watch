@@ -17,3 +17,8 @@ Below is the screenshot showing the app in working :-
 2) Look for open issues or create issues.
 3) Open a PR and wait for it to be reviewed!
 
+##stopwatch
+One can easily do many activities uing a stopwatch which would be difficult without it.
+It is widely used in sports and many games for keeping a check on time.
+It is more convieneint than normal watches as it keeps exact track of time from a specific period.
+Now the digitalised stop watches have many different features so are more useful.
