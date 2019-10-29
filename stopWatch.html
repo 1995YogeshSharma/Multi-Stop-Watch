@@ -18,6 +18,15 @@
 	    	var listStopWatch = [];  
 	    	var idCounter = 1;  //gives id to the watch object
 
+			var pausePlayButtonStr = function(watch) {
+					if(watch.status == 1) {
+						return "<span id='pausePlayBtn' class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + watch.id + ")'>Pause</span>";
+					}
+					else {
+						return "<span id='pausePlayBtn' class='btn btn-success glyphicon glyphicon-play' onclick='PausePlayToggle(this, " + watch.id + ")'>Play</span>"
+					}
+				}
+
 	    	//given time in seconds returns a string in format hh:mm:ss
 	    	function GiveTimeString(remSeconds) {
 	    		var secs = remSeconds % 60;
@@ -33,14 +42,6 @@
 
 	    	//returns html body for the watch
 			function StopWatchBody(Watch) {
-				var pausePlayButtonStr = function(status) {
-					if(status == 1) {
-						return "<span class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + Watch.id + ")'>Pause</span>";
-					}
-					else {
-						return "<span class='btn btn-success glyphicon glyphicon-play' onclick='PausePlayToggle(this, " + Watch.id + ")'>Play</span>"
-					}
-				}
 				var retStr = "<div class='col-md-6' id='" + Watch.id + "'>" +
 							 	"<div class='panel panel-default'>" +
 							  		"<div class='panel-heading'>" +
@@ -64,7 +65,7 @@
 							  		"</div>" +
 							  		"<div class='panel-footer'>" +
 							  			"<div class='btn-group btn-group-justified'>" +
-							  				pausePlayButtonStr(Watch.status) +
+											"<span class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + Watch.id + ")'>Pause</span>" +
 											"<span class='btn btn-info glyphicon glyphicon-refresh' onclick='RestartClock(" + Watch.id + ")'>Restart</span>" +
 											"<span class='btn btn-danger glyphicon glyphicon-remove' onclick='RemoveOne(" + Watch.id + ")'>Remove</span>" +
 										"<!/div>" +
@@ -73,6 +74,7 @@
 							  "</div>";
 				
 				return retStr;
+
 			}
 	    	
 	    	//creates a watch object
@@ -127,7 +129,7 @@
 	    	//for pause play
 	    	function PausePlayToggle(elem, id) {
 	    		if(elem.innerHTML == 'Pause') {
-	    			elem.outerHTML = "<span class='btn btn-success glyphicon glyphicon-play' onclick='PausePlayToggle(this, " + id + ")'>Play</span>"
+	    			elem.outerHTML = "<span id='pausePlayBtn' class='btn btn-success glyphicon glyphicon-play' onclick='PausePlayToggle(this, " + id + ")'>Play</span>"
 	    			for(var i = 0; i < listStopWatch.length; i++) {
 	    				if(listStopWatch[i].id == id) {
 	    					listStopWatch[i].status = 0;
@@ -135,7 +137,7 @@
 	    			}
 	    		}
 	    		else if(elem.innerHTML == 'Play') {
-	    			elem.outerHTML = "<span class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + id + ")'>Pause</span>"
+	    			elem.outerHTML = "<span id='pausePlayBtn' class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + id + ")'>Pause</span>"
 	    			for(var i = 0; i < listStopWatch.length; i++) {
 	    				if(listStopWatch[i].id == id) {
 	    					listStopWatch[i].status = 1;
@@ -187,6 +189,26 @@
 	    		}
 	    	}
 
+			function RestartModalClock(elem, id){
+				RestartClock(id)
+				document.getElementById('note' + id).innerHTML = GiveTimeString(0);
+			}
+
+			function RestartModalClock(elem, id){
+				RestartClock(id)
+				document.getElementById('note' + id).innerHTML = GiveTimeString(0);
+			}
+			function PausePlayModalToggle(elem, id){
+				if(elem.innerHTML == 'Pause') {
+					document.getElementById('pausePlayBtn').outerHTML = "<span id='pausePlayBtn' class='btn btn-success glyphicon glyphicon-play' onclick='PausePlayToggle(this, " + id + ")'>Play</span>"
+				}
+				if(elem.innerHTML == 'Play'){
+					document.getElementById('pausePlayBtn').outerHTML = "<span id='pausePlayBtn' class='btn btn-success glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " + id + ")'>Pause</span>"
+				}
+				PausePlayToggle(elem, id)
+				
+			}
+
 	    	//function to fill the modal dynamically when a note button is called
 	    	function fillModal(id) {
 	    		var watch = null;
@@ -222,7 +244,11 @@
 								   		"</span>" +
 									"</li>";
 				}
-				retHtmlBody += "</ul>";
+				retHtmlBody += "</ul>"+ "<div class='btn-group btn-group-justified'>" +
+							  				pausePlayButtonStr(watch) +
+											  "<span class='btn btn-info glyphicon glyphicon-refresh' onclick='RestartModalClock(this.previousSibling, " + watch.id + ")'>Restart</span>" +
+											"<span class='btn btn-danger glyphicon glyphicon-remove' data-dismiss='modal' onclick='RemoveOne(" + watch.id + ")'>Remove</span>" +
+										"<!/div>";
 
 				retHtmlFooter += "<div class='input-group'>" +
 									"<input type='text' name='noteText' class='form-control' id='newNote' placeholder='Write Note' onKeyDown='if(event.which==13) AddNote(" + watch.id + ")' />" +
