@@ -10,3 +10,7 @@ li .list-item {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.glyphicon-remove {
+  cursor: pointer;
+}
