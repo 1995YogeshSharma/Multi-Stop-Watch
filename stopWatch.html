@@ -13,13 +13,13 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
-  </script>
+    </script>
 
-  <script src="scripts/stopwatch.js"></script>
+
 
   <title>Multi Watch</title>
   <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="styles/stopwatch.css"> 
+  <link rel="stylesheet" type="text/css" href="styles/stopwatch.css">
 </head>
 
 <!-- Modal for showing Notes-->
@@ -48,11 +48,10 @@
     <div class="container-fluid">
       <h1 class="page-header text-center"> Multi Stop Watch </h1>
       <div class="input-group">
-        <input id='title' type='text' class="form-control" onkeydown='detectEnter(event)'
-          placeholder="Enter title for StopWatch" />
+        <input id='title' type='text' class="form-control" placeholder="Enter title for StopWatch" />
         <span class="input-group-btn">
-          <button onclick="AddWatch()" class="form-control btn btn-primary"><span
-              class="glyphicon glyphicon-plus"></span> Add stopwatch </button>
+          <button id="addWatch-btn" class="form-control btn btn-primary"><span class="glyphicon glyphicon-plus"></span>
+            Add stopwatch </button>
         </span>
       </div>
     </div>
@@ -66,9 +65,11 @@
 
   <hr>
   <div class="row">
-    <p class="col-md-offset-5 btn btn-danger btn-lg" onclick="RemoveAll()"><span
+    <p class="col-md-offset-5 btn btn-danger btn-lg" id="removeAll-btn"><span
         class="glyphicon glyphicon-remove"></span>REMOVE ALL</p>
   </div>
+
+  <script src="scripts/stopwatch.js"></script>
 
 </body>
 

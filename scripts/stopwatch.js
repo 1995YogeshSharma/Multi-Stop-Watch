@@ -17,7 +17,7 @@ function GiveTimeString(remSeconds) {
 
 //returns html body for the watch
 function StopWatchBody(Watch) {
-  var pausePlayButtonStr = function(status) {
+  var pausePlayButtonStr = function (status) {
     if (status == 1) {
       return (
         "<span class='btn btn-warning glyphicon glyphicon-pause' onclick='PausePlayToggle(this, " +
@@ -270,13 +270,13 @@ function fillModal(id) {
 setInterval(updateClocks, 1000);
 
 //store the list of stopwatches in the cookie so that reloading the page does not cause data to loss
-window.onbeforeunload = function(e) {
+window.onbeforeunload = function (e) {
   e = e || window.event;
   localStorage.setItem("myCookie", JSON.stringify(listStopWatch));
 };
 
 //load the list of stopwatches in listStopWatch and attach them to html is list is present in cookie.
-window.onload = function(e) {
+window.onload = function (e) {
   e = e || window.event;
   var X = JSON.parse(localStorage.getItem("myCookie"));
   for (var i = 0; i < X.length; i++) {
@@ -299,3 +299,14 @@ function detectEnter(event) {
     AddWatch();
   }
 }
+
+
+//Set event listeners for each target.
+
+var addWatchButton = document.getElementById("addWatch-btn");
+addWatchButton.addEventListener("click", AddWatch);
+console.log(addWatchButton.textContent)
+
+var removeAllButton = document.getElementById("removeAll-btn");
+removeAllButton.addEventListener("click", RemoveAll);
+console.log(removeAllButton.textContent);
